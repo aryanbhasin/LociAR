@@ -75,6 +75,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
         // area tapped
+        print("This works")
         guard let areaTapped = sender.view as? ARSCNView else {
             return
         }
@@ -84,6 +85,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             if let hitTestResult = hitTestResults.first {
                 let virtualAnchor = ARAnchor(transform: hitTestResult.worldTransform)
                 self.sceneView.session.add(anchor: virtualAnchor)
+                print("This also works")
             }
         }
     }
@@ -92,11 +94,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if anchor is ARPlaneAnchor {
             return
         }
-        
-        // create new node here
-        // example: let newNode = SCNNode(geometry: SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0))
-        // newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        // node.addChildNode(newNode)
+        let newNode = SCNNode(geometry: SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0))
+        newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        node.addChildNode(newNode)
+        //createNode(node: node, anchor: anchor)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +109,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Run the view's session
         sceneView.session.run(configuration)
     }
+    
+//    func createNode(node: SCNNode, anchor: ARAnchor) {
+//        let newNode = SCNNode()
+//        newNode.geometry = SCNSphere(radius: 0.05)
+//        newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+//        newNode.name = "sphere"
+//        sceneView.scene.rootNode.addChildNode(newNode)
+//        print("Node created")
+//    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

@@ -51,9 +51,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // shows origin and feature points for debugging
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         
-        let longPressGesture = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
-        longPressGesture.minimumPressDuration = 1.5
-        sceneView.addGestureRecognizer(longPressGesture)
+        let doubleTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        sceneView.addGestureRecognizer(doubleTapGesture)
         
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
@@ -62,7 +62,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
     }
     
-    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+    @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
         // area tapped
         print("This works")
         guard let areaTapped = sender.view as? ARSCNView else {

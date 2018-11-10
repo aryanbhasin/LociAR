@@ -39,16 +39,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func saveButton(_ sender: Any) {
     }
     
-    func listFilesFromDirectory() -> [NSString] {
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        do {
-            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-            // process files
-        } catch {
-            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
-        }
-    }
+//    func listFilesFromDirectory() -> [NSString] {
+//        let fileManager = FileManager.default
+//        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        do {
+//            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+//            // process files
+//        } catch {
+//            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,11 +62,41 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // shows origin and feature points for debugging
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
         
+        let longPressGesture = UILongPressGestureRecognizer (target: self, action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 1.5
+        sceneView.addGestureRecognizer(longPressGesture)
+        
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
+    }
+    
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+        // area tapped
+        guard let areaTapped = sender.view as? ARSCNView else {
+            return
+        }
+        let touch = sender.location(in: areaTapped)
+        let hitTestResults = areaTapped.hitTest(touch, types: [.featurePoint, .estimatedHorizontalPlane])
+        if hitTestResults.isEmpty == false {
+            if let hitTestResult = hitTestResults.first {
+                let virtualAnchor = ARAnchor(transform: hitTestResult.worldTransform)
+                self.sceneView.session.add(anchor: virtualAnchor)
+            }
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if anchor is ARPlaneAnchor {
+            return
+        }
+        
+        // create new node here
+        // example: let newNode = SCNNode(geometry: SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0))
+        // newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        // node.addChildNode(newNode)
     }
     
     override func viewWillAppear(_ animated: Bool) {

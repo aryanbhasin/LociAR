@@ -127,7 +127,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
         
         //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            
+            self.removeNode(newNode: newNode)
+            
+        }
         
         //adding textfields to our dialog box
         alertController.addTextField { (textField) in
@@ -151,6 +155,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         //createNode(node: node, anchor: anchor)
     }
     
+    func removeNode(newNode: SCNNode) {
+        newNode.removeFromParentNode()
+        
+//        self.sceneView.scene.rootNode.enumerateChildNodes({ (node, _) in
+//            if node.name == newNode.name {
+//            node.removeFromParentNode()
+//            }
+//        })
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

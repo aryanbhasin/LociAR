@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="LociAR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -16,13 +21,42 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RST-Uu-OHc">
+                                <rect key="frame" x="282" y="617" width="77" height="30"/>
+                                <state key="normal" title="Start Path"/>
+                                <connections>
+                                    <action selector="startPathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="u1J-fb-rcp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heL-oW-ygw">
+                                <rect key="frame" x="16" y="617" width="69.5" height="30"/>
+                                <state key="normal" title="Load Path"/>
+                                <connections>
+                                    <action selector="loadPathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dFe-KB-39r"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8t-ST-xtw">
+                                <rect key="frame" x="153.5" y="617" width="68" height="30"/>
+                                <state key="normal" title="Save Path"/>
+                                <connections>
+                                    <action selector="savePathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="DHm-qU-voW"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leading" id="5AP-8V-cD5"/>
+                            <constraint firstAttribute="trailing" secondItem="BrB-h1-WRS" secondAttribute="trailing" id="ASA-a3-dbH"/>
+                            <constraint firstItem="RST-Uu-OHc" firstAttribute="leading" secondItem="R8t-ST-xtw" secondAttribute="trailing" constant="69" id="IAj-Ws-3LQ"/>
+                            <constraint firstItem="R8t-ST-xtw" firstAttribute="baseline" secondItem="RST-Uu-OHc" secondAttribute="baseline" id="Kh6-xK-qJG"/>
+                            <constraint firstItem="heL-oW-ygw" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="WnS-M1-3Bt"/>
+                            <constraint firstItem="R8t-ST-xtw" firstAttribute="leading" secondItem="heL-oW-ygw" secondAttribute="trailing" constant="68" id="hvt-bi-zV4"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="iRS-L9-tRT"/>
+                            <constraint firstAttribute="bottom" secondItem="heL-oW-ygw" secondAttribute="bottom" constant="20" symbolic="YES" id="ibd-4R-JSL"/>
+                            <constraint firstItem="RST-Uu-OHc" firstAttribute="trailing" secondItem="U0K-SW-4ec" secondAttribute="trailingMargin" id="ipi-bX-Z0y"/>
+                            <constraint firstItem="heL-oW-ygw" firstAttribute="baseline" secondItem="R8t-ST-xtw" secondAttribute="baseline" id="kDI-g5-fl1"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="R8t-ST-xtw" secondAttribute="centerX" id="lGB-ys-ODQ"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="oVA-dD-rDH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>

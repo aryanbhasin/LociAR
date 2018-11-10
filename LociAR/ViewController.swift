@@ -14,6 +14,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    @IBAction func loadPathButton(_ sender: UIButton) {
+        // loads existing path-- use persistence
+    }
+    
+    @IBAction func startPathButton(_ sender: UIButton) {
+        // starts new path
+    }
+    
+    @IBAction func savePathButton(_ sender: UIButton) {
+        // saves path-- use persistence
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,4 +85,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+    
+    
 }

@@ -188,7 +188,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
-            self.fileStringArray.append(name)
+            self.fileStringArray.append(name!)
             self.saveMap(name: name!)
             
         }

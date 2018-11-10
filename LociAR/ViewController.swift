@@ -21,10 +21,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     let configuration = ARWorldTrackingConfiguration()
     
-    @IBAction func loadPathButton(_ sender: UIButton) {
-        // loads existing path-- use persistence
-    }
-    
     @IBAction func startPathButton(_ sender: UIButton) {
         // starts new path
         
@@ -33,17 +29,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.run(configuration, options: [.resetTracking])
     }
     
-    @IBAction func savePathButton(_ sender: UIButton) {
-        // saves path-- use persistence
-    }
-    
     @IBAction func loadButton(_ sender: Any) {
         loadSave()
     }
 
-    
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,7 +63,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
         // area tapped
-        print("This works")
         guard let areaTapped = sender.view as? ARSCNView else {
             return
         }
@@ -85,7 +73,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             if let hitTestResult = hitTestResults.first {
                 let virtualAnchor = ARAnchor(transform: hitTestResult.worldTransform)
                 self.sceneView.session.add(anchor: virtualAnchor)
-                print("This also works")
             }
         }
     }
@@ -101,6 +88,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             // no virtual objects where user taps
             // ignore
         } else {
+            let results = hitTestResults.first!
+            let name = results.node.name
+            print (name)
+            results.node.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
             // there is a virtual object
             // open the node and stuff
         }
@@ -189,7 +180,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             //getting the input values from user
             let name = alertController.textFields?[0].text
             self.loadMap(name: name!)
-            
         }
         
         //the cancel action doing nothing

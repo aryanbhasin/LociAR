@@ -14,12 +14,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    let configuration = ARWorldTrackingConfiguration()
+    
     @IBAction func loadPathButton(_ sender: UIButton) {
         // loads existing path-- use persistence
     }
     
     @IBAction func startPathButton(_ sender: UIButton) {
         // starts new path
+        
+        // resets tracking-- (0,0,0) initialized at user's current location
+        sceneView.session.pause()
+        sceneView.session.run(configuration, options: [.resetTracking])
     }
     
     @IBAction func savePathButton(_ sender: UIButton) {
@@ -36,6 +42,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        // shows origin and feature points for debugging
+        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
@@ -47,7 +56,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
+        
 
         // Run the view's session
         sceneView.session.run(configuration)

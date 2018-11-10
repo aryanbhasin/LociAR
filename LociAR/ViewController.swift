@@ -9,8 +9,10 @@
 import UIKit
 import SceneKit
 import ARKit
+//import FileBrowser
 
 class ViewController: UIViewController, ARSCNViewDelegate {
+    var fileStringArray = [String]()
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -117,6 +119,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func loadSave() {
+//        let fileBrowser = FileBrowser()
+//        self.presentViewController(fileBrowser, animated: true, completion: nil)
+        
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter name of the map?", message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Load", style: .default) { (_) in
@@ -183,6 +188,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
+            self.fileStringArray.append(name)
             self.saveMap(name: name!)
             
         }
@@ -212,7 +218,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let map = worldMap {
             let data = try! NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
             // save in user defaults
-            let savedMap = UserDefaults.standard; savedMap.set(data, forKey: name); savedMap.synchronize(); DispatchQueue.main.async {
+            let savedMap = UserDefaults.standard;
+            savedMap.set(data, forKey: name);
+            savedMap.set(self.fileStringArray, forKey: "SavedFileArray")
+            savedMap.synchronize();
+            DispatchQueue.main.async {
                 //self.lblMessage.text = "World map saved" }
         } }
     }

@@ -106,6 +106,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+
+
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {

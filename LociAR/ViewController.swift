@@ -32,6 +32,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // saves path-- use persistence
     }
     
+    @IBAction func loadButton(_ sender: Any) {
+//        loadSave()
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+    }
+    
+    func listFilesFromDirectory() -> [NSString] {
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            // process files
+        } catch {
+            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

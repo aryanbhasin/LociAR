@@ -32,6 +32,7 @@
                                 <rect key="frame" x="16" y="617" width="69.5" height="30"/>
                                 <state key="normal" title="Load Path"/>
                                 <connections>
+                                    <action selector="loadButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Frq-J2-d5k"/>
                                     <action selector="loadPathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dFe-KB-39r"/>
                                 </connections>
                             </button>
@@ -39,6 +40,7 @@
                                 <rect key="frame" x="153.5" y="617" width="68" height="30"/>
                                 <state key="normal" title="Save Path"/>
                                 <connections>
+                                    <action selector="saveButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Uep-cH-0hv"/>
                                     <action selector="savePathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="DHm-qU-voW"/>
                                 </connections>
                             </button>

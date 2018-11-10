@@ -57,11 +57,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         doubleTapGesture.numberOfTapsRequired = 2
         sceneView.addGestureRecognizer(doubleTapGesture)
         
+        let normalTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(normalTapGesture)
+        
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        
+        
         
         // Set the scene to the view
-        sceneView.scene = scene
+//        sceneView.scene = scene
     }
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
@@ -71,6 +76,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         let touch = sender.location(in: areaTapped)
+        // this is ARKit hitTesting which performs hit test on real world
         let hitTestResults = areaTapped.hitTest(touch, types: [.featurePoint, .estimatedHorizontalPlane])
         if hitTestResults.isEmpty == false {
             if let hitTestResult = hitTestResults.first {
@@ -78,6 +84,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 self.sceneView.session.add(anchor: virtualAnchor)
                 print("This also works")
             }
+        }
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        guard let areaTapped = sender.view as? ARSCNView else {
+            return
+        }
+        let touch = sender.location(in: areaTapped)
+        // This is SceneKit hitTesting which performs hit test on SceneKit objects
+        let hitTestResults = areaTapped.hitTest(touch)
+        if hitTestResults.isEmpty {
+            // no virtual objects where user taps
+            // ignore
+        } else {
+            // there is a virtual object
+            // open the node and stuff
         }
     }
     
@@ -188,7 +210,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
-            self.fileStringArray.append(name)
+            self.fileStringArray.append(name!)
             self.saveMap(name: name!)
             
         }

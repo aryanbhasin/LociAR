@@ -33,27 +33,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func loadButton(_ sender: Any) {
-<<<<<<< HEAD
         loadSave()
     }
-=======
-//        loadSave()
-    }
+
     
-    @IBAction func saveButton(_ sender: Any) {
-    }
-    
-//    func listFilesFromDirectory() -> [NSString] {
-//        let fileManager = FileManager.default
-//        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        do {
-//            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
-//            // process files
-//        } catch {
-//            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
-//        }
-//    }
->>>>>>> caca51f70483ff32c0958d18f2b4a26ca76daf4b
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,6 +164,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func saveButton(_ sender: Any) {
         saveForm()
     }
+    
     func saveForm() {
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter name of the map?", message: "", preferredStyle: .alert)

@@ -119,7 +119,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func loadSave() {
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter name of the map?", message: "", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+        let confirmAction = UIAlertAction(title: "Load", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
             self.loadMap(name: name!)
@@ -133,6 +133,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         alertController.addTextField { (textField) in
             textField.placeholder = "Enter Name"
         }
+        
         //adding the action to dialogbox
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
@@ -141,7 +142,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.present(alertController, animated: true, completion: nil)
     
         
-//        listFilesFromDocumentsFolder()
+        listFilesFromDocumentsFolder()
     }
     
     func loadMap(name: String) {
@@ -159,10 +160,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func listFilesFromDocumentsFolder() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
-        
+
         do {
             let items = try fm.contentsOfDirectory(atPath: path)
-            
+
             for item in items {
                 print("Found \(item)")
             }
@@ -170,7 +171,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             // failed to read directory – bad permissions, perhaps?
         }
     }
-    
+
     
     @IBAction func saveButton(_ sender: Any) {
         saveForm()

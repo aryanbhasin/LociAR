@@ -13,6 +13,9 @@ import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
     var fileStringArray = [String]()
+//    let tap = UITapGestureRecognizer(target: self, action: Selector("tapFunction:"))
+//    var fileManager = FileManager()
+    
 
     @IBOutlet var sceneView: ARSCNView!
     
@@ -57,11 +60,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         doubleTapGesture.numberOfTapsRequired = 2
         sceneView.addGestureRecognizer(doubleTapGesture)
         
+        let normalTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(normalTapGesture)
+        
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        
+        
         
         // Set the scene to the view
-        sceneView.scene = scene
+//        sceneView.scene = scene
     }
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
@@ -71,6 +79,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         let touch = sender.location(in: areaTapped)
+        // this is ARKit hitTesting which performs hit test on real world
         let hitTestResults = areaTapped.hitTest(touch, types: [.featurePoint, .estimatedHorizontalPlane])
         if hitTestResults.isEmpty == false {
             if let hitTestResult = hitTestResults.first {
@@ -81,15 +90,65 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        guard let areaTapped = sender.view as? ARSCNView else {
+            return
+        }
+        let touch = sender.location(in: areaTapped)
+        // This is SceneKit hitTesting which performs hit test on SceneKit objects
+        let hitTestResults = areaTapped.hitTest(touch)
+        if hitTestResults.isEmpty {
+            // no virtual objects where user taps
+            // ignore
+        } else {
+            // there is a virtual object
+            // open the node and stuff
+        }
+    }
+
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
             return
         }
         let newNode = SCNNode(geometry: SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0))
+        
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
+            //getting the input values from user
+            newNode.name = alertController.textFields?[0].text
+            newNode.name = newNode.name! + "@" + (alertController.textFields?[1].text)!
+            print("I am here")
+            print(newNode.name)
+            
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Name"
+        }
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Description"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+        
         newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+
         node.addChildNode(newNode)
         //createNode(node: node, anchor: anchor)
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -147,7 +206,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.present(alertController, animated: true, completion: nil)
     
         
-        listFilesFromDocumentsFolder()
+        //listFilesFromDocumentsFolder()
     }
     
     func loadMap(name: String) {
@@ -175,6 +234,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         } catch {
             // failed to read directory – bad permissions, perhaps?
         }
+    }
+    
+    func tapFunction(sender:UITapGestureRecognizer) {
+        print("tap working")
     }
 
     

@@ -16,22 +16,71 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //    let tap = UITapGestureRecognizer(target: self, action: Selector("tapFunction:"))
 //    var fileManager = FileManager()
     
-
+    var currentNodeOnTap:SCNNode?
+    
     @IBOutlet var sceneView: ARSCNView!
+    
+    @IBOutlet weak var TapStack: UIStackView!
+
+//    @IBAction func editNodeButton(_ sender: UIButton) {
+//        editNode(node: self.currentNodeOnTap!)
+//    }
+//    @IBAction func deleteNodeButton(_ sender: UIButton) {
+//        deleteNode(node: self.currentNodeOnTap!)
+//    }
+    
+    @IBAction func editNodeButton(_ sender: UIButton) {
+        editNode(node: self.currentNodeOnTap!)
+    }
+    
+    @IBAction func deleteNodeBUtton(_ sender: UIButton) {
+        deleteNode(node: self.currentNodeOnTap!)
+    }
+
+//
+    
+    // BUGS TO SQUASH:
+    // When text is updated it also needs to be changed for the physical text node
+    // Hide the stack again after a done button
+    
+    
+//    @IBOutlet weak var editNoteButton: UIButton!
+//    @IBOutlet weak var deleteNodeButton: UIButton!
+    
+    @IBOutlet weak var nodeNameText: UITextField!
+    @IBOutlet weak var nodeDescriptionText: UITextField!
+    
     
     let configuration = ARWorldTrackingConfiguration()
     
-    @IBAction func startPathButton(_ sender: UIButton) {
-        // starts new path
-        
-        // resets tracking-- (0,0,0) initialized at user's current location
+    @IBAction func loadB(_ sender: UIButton) {
+        loadSave()
+    }
+    
+    @IBAction func saveB(_ sender: UIButton) {
+        saveForm()
+    }
+    
+    
+    @IBAction func startB(_ sender: UIButton) {
         sceneView.session.pause()
         sceneView.session.run(configuration, options: [.resetTracking])
     }
     
-    @IBAction func loadButton(_ sender: Any) {
-        loadSave()
-    }
+//    @IBAction func savePathButton(_ sender: UIButton) {
+//        saveForm()
+//    }
+//    @IBAction func startPathButton(_ sender: UIButton) {
+//        // starts new path
+//
+//        // resets tracking-- (0,0,0) initialized at user's current location
+//        sceneView.session.pause()
+//        sceneView.session.run(configuration, options: [.resetTracking])
+//    }
+//
+//    @IBAction func loadPathButton(_ sender: UIButton) {
+//        loadSave()
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +93,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // shows origin and feature points for debugging
         sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
+        
+        
+        TapStack.isHidden = true
         
         let doubleTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -59,6 +111,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Set the scene to the view
 //        sceneView.scene = scene
+        
+//        let model = SCNScene(named: "art.scnassets/Lowpoly_tree_sample.scn")!
+//
+//        // Set the scene to the view
+//        sceneView.scene = model
     }
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
@@ -89,11 +146,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             // ignore
         } else {
             let results = hitTestResults.first!
+            self.currentNodeOnTap = results.node
             let name = results.node.name
-            print (name)
-            results.node.geometry?.firstMaterial?.diffuse.contents = UIColor.orange
-            // there is a virtual object
-            // open the node and stuff
+            if (name != nil) {
+                let text = name!.components(separatedBy: "@")
+                let nameOfNode: String = text[0]
+                let description: String = text[1]
+                print(nameOfNode)
+                
+                nodeNameText.text = nameOfNode
+                nodeDescriptionText.text = description
+                TapStack.isHidden = false
+            }
+            
+
         }
     }
 
@@ -104,7 +170,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if anchor is ARPlaneAnchor {
             return
         }
-        let newNode = SCNNode(geometry: SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0))
+        let newNode = SCNNode(geometry: SCNSphere(radius:0.03))
         
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
@@ -113,8 +179,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             newNode.name = alertController.textFields?[0].text
             newNode.name = newNode.name! + "@" + (alertController.textFields?[1].text)!
             print("I am here")
-            print(newNode.name)
             
+            print(newNode.name)
+            let text = newNode.name?.components(separatedBy: "@")
+            let nameOfNode: String = text![0]
+            let description: String = text![1]
+            
+            let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
+            let material = SCNMaterial()
+            material.diffuse.contents = UIColor.white
+            displayNodeName.materials = [material]
+            
+            let textNode = SCNNode()
+            textNode.position = SCNVector3(newNode.position.x, newNode.position.y, newNode.position.z + 0.07)
+            textNode.scale = SCNVector3(0.004, 0.004, 0.004)
+            textNode.geometry = displayNodeName
+            textNode.name = "shape"
+            node.addChildNode(textNode)
         }
         
         //the cancel action doing nothing
@@ -141,8 +222,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.present(alertController, animated: true, completion: nil)
         
         newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-
+        
         node.addChildNode(newNode)
+        
         //createNode(node: node, anchor: anchor)
     }
     
@@ -226,37 +308,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let configuration = ARWorldTrackingConfiguration(); configuration.planeDetection = .horizontal; sceneView.session.run(configuration)
         } }
     
-    func listFilesFromDocumentsFolder() {
-        let fm = FileManager.default
-        let path = Bundle.main.resourcePath!
-
-        do {
-            let items = try fm.contentsOfDirectory(atPath: path)
-
-            for item in items {
-                print("Found \(item)")
-            }
-        } catch {
-            // failed to read directory – bad permissions, perhaps?
-        }
-    }
-    
-    func tapFunction(sender:UITapGestureRecognizer) {
-        print("tap working")
-    }
-
-    
-    @IBAction func saveButton(_ sender: Any) {
-        saveForm()
-    }
-    
     func saveForm() {
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter name of the map?", message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
-            self.fileStringArray.append(name!)
             self.saveMap(name: name!)
             
         }
@@ -284,15 +341,46 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         if let map = worldMap {
-            let data = try! NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
-            // save in user defaults
-            let savedMap = UserDefaults.standard;
-            savedMap.set(data, forKey: name);
-            savedMap.set(self.fileStringArray, forKey: "SavedFileArray")
-            savedMap.synchronize();
-            DispatchQueue.main.async {
-                //self.lblMessage.text = "World map saved" }
-        } }
+                let data = try! NSKeyedArchiver.archivedData(withRootObject: map, requiringSecureCoding: true)
+                // save in user defaults
+                let savedMap = UserDefaults.standard;
+                savedMap.set(data, forKey: name);
+                savedMap.synchronize()
+            }
+        }
+    }
+    
+    func editNode(node: SCNNode) {
+        let alertController = UIAlertController(title: "Enter new name", message: "", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+            //getting the input values from user
+            let newName = alertController.textFields?[0].text
+            let currentName = node.name!.components(separatedBy: "@")
+            var nameOfNode: String = currentName[0]
+            let description: String = currentName[1]
+            nameOfNode = newName ?? currentName[0]
+            node.name = nameOfNode + "@" + description
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter New Name"
+        }
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+        
+    func deleteNode(node:SCNNode) {
+       node.removeFromParentNode()
     }
     
     
@@ -325,5 +413,4 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
-}
 }

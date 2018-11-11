@@ -21,53 +21,83 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RST-Uu-OHc">
-                                <rect key="frame" x="282" y="617" width="77" height="30"/>
-                                <state key="normal" title="Start Path"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOl-Yq-RFJ">
+                                <rect key="frame" x="170" y="688" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
                                 <connections>
-                                    <action selector="startPathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="u1J-fb-rcp"/>
+                                    <action selector="saveB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="gSk-FH-FhF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heL-oW-ygw">
-                                <rect key="frame" x="16" y="762" width="69.666666666666671" height="30"/>
-                                <state key="normal" title="Load Path"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIs-Ch-pbD">
+                                <rect key="frame" x="22" y="688" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Load"/>
                                 <connections>
-                                    <action selector="loadButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Frq-J2-d5k"/>
-                                    <action selector="loadPathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="dFe-KB-39r"/>
+                                    <action selector="loadB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="vtt-Ui-l02"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R8t-ST-xtw">
-                                <rect key="frame" x="153.66666666666666" y="762" width="68" height="30"/>
-                                <state key="normal" title="Save Path"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-lx-9Tl">
+                                <rect key="frame" x="319" y="688" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
-                                    <action selector="saveButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Uep-cH-0hv"/>
-                                    <action selector="savePathButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="DHm-qU-voW"/>
+                                    <action selector="startB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z3A-WU-JMY"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-ZM-nEC">
+                                <rect key="frame" x="144" y="452" width="86" height="156"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HfS-MS-ZuF">
+                                        <rect key="frame" x="9" y="0.0" width="68" height="30"/>
+                                        <state key="normal" title="Edit Node"/>
+                                        <connections>
+                                            <action selector="editNodeButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2DT-Uk-yTI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uha-CM-eh3">
+                                        <rect key="frame" x="0.0" y="42" width="86" height="30"/>
+                                        <state key="normal" title="Delete Node"/>
+                                        <connections>
+                                            <action selector="deleteNodeBUtton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="SeX-Q9-nwF"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hc-kb-Cg3">
+                                        <rect key="frame" x="30.666666666666671" y="84" width="25" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vW3-ev-b9k">
+                                        <rect key="frame" x="30.666666666666671" y="126" width="25" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leading" id="5AP-8V-cD5"/>
                             <constraint firstAttribute="trailing" secondItem="BrB-h1-WRS" secondAttribute="trailing" id="ASA-a3-dbH"/>
-                            <constraint firstItem="RST-Uu-OHc" firstAttribute="leading" secondItem="R8t-ST-xtw" secondAttribute="trailing" constant="69" id="IAj-Ws-3LQ"/>
-                            <constraint firstItem="R8t-ST-xtw" firstAttribute="baseline" secondItem="RST-Uu-OHc" secondAttribute="baseline" id="Kh6-xK-qJG"/>
-                            <constraint firstItem="heL-oW-ygw" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" id="WnS-M1-3Bt"/>
-                            <constraint firstItem="R8t-ST-xtw" firstAttribute="leading" secondItem="heL-oW-ygw" secondAttribute="trailing" constant="68" id="hvt-bi-zV4"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="iRS-L9-tRT"/>
-                            <constraint firstAttribute="bottom" secondItem="heL-oW-ygw" secondAttribute="bottom" constant="20" symbolic="YES" id="ibd-4R-JSL"/>
-                            <constraint firstItem="RST-Uu-OHc" firstAttribute="trailing" secondItem="U0K-SW-4ec" secondAttribute="trailingMargin" id="ipi-bX-Z0y"/>
-                            <constraint firstItem="heL-oW-ygw" firstAttribute="baseline" secondItem="R8t-ST-xtw" secondAttribute="baseline" id="kDI-g5-fl1"/>
-                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="R8t-ST-xtw" secondAttribute="centerX" id="lGB-ys-ODQ"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="oVA-dD-rDH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="TapStack" destination="GUi-ZM-nEC" id="oVr-Y9-1Ry"/>
+                        <outlet property="nodeDescriptionText" destination="vW3-ev-b9k" id="8PB-NN-Yyn"/>
+                        <outlet property="nodeNameText" destination="4hc-kb-Cg3" id="D48-9W-lcP"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="64.799999999999997" y="22.906403940886701"/>
         </scene>
     </scenes>
 </document>

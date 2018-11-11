@@ -18,9 +18,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var currentNodeOnTap:SCNNode?
     
+    var currentTextNodeOnTap: SCNNode?
+    
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var TapStack: UIStackView!
+    
+    @IBOutlet weak var doneButton: UIButton!
 
 //    @IBAction func editNodeButton(_ sender: UIButton) {
 //        editNode(node: self.currentNodeOnTap!)
@@ -36,8 +40,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func deleteNodeBUtton(_ sender: UIButton) {
         deleteNode(node: self.currentNodeOnTap!)
     }
-
-//
+    
+    
+    @IBAction func doneButton(_ sender: UIButton) {
+        TapStack.isHidden = true;
+    }
+    
+    //
     
     // BUGS TO SQUASH:
     // When text is updated it also needs to be changed for the physical text node
@@ -147,6 +156,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         } else {
             let results = hitTestResults.first!
             self.currentNodeOnTap = results.node
+//            var textName = self.currentNodeOnTap!.name! + "text"
+//            - (SCNNode *)childNodeWithName:(NSString *)textName recursively:(YES)recursively;
             let name = results.node.name
             if (name != nil) {
                 let text = name!.components(separatedBy: "@")
@@ -170,7 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if anchor is ARPlaneAnchor {
             return
         }
-        let newNode = SCNNode(geometry: SCNSphere(radius:0.03))
+        let newNode = SCNNode(geometry: SCNPyramid(width: 0.04, height: 0.08, length: 0.04))
         
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
@@ -184,6 +195,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let text = newNode.name?.components(separatedBy: "@")
             let nameOfNode: String = text![0]
             let description: String = text![1]
+            print(node.childNodes)
             
             let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
             let material = SCNMaterial()
@@ -194,7 +206,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             textNode.position = SCNVector3(newNode.position.x, newNode.position.y, newNode.position.z + 0.07)
             textNode.scale = SCNVector3(0.004, 0.004, 0.004)
             textNode.geometry = displayNodeName
-            textNode.name = "shape"
+            textNode.name = nameOfNode + "text"
+//            node.replaceChildNode(<#T##oldChild: SCNNode##SCNNode#>, with: <#T##SCNNode#>)
             node.addChildNode(textNode)
         }
         
@@ -359,7 +372,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             var nameOfNode: String = currentName[0]
             let description: String = currentName[1]
             nameOfNode = newName ?? currentName[0]
+            
             node.name = nameOfNode + "@" + description
+            
+            let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
+            let material = SCNMaterial()
+            material.diffuse.contents = UIColor.white
+            displayNodeName.materials = [material]
+            
+            let newTextNode = SCNNode()
+            newTextNode.position = SCNVector3(node.position.x, node.position.y, node.position.z + 0.07)
+            newTextNode.scale = SCNVector3(0.004, 0.004, 0.004)
+            newTextNode.geometry = displayNodeName
+            newTextNode.name = "shape"
+            
+            node.addChildNode(newTextNode)
+            
         }
         
         //the cancel action doing nothing

@@ -46,37 +46,30 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-ZM-nEC">
-                                <rect key="frame" x="144" y="437" width="86" height="214"/>
+                                <rect key="frame" x="144" y="140" width="86" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HfS-MS-ZuF">
-                                        <rect key="frame" x="9" y="0.0" width="68" height="30"/>
-                                        <state key="normal" title="Edit Node"/>
-                                        <connections>
-                                            <action selector="editNodeButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="2DT-Uk-yTI"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uha-CM-eh3">
-                                        <rect key="frame" x="0.0" y="46" width="86" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="30"/>
                                         <state key="normal" title="Delete Node"/>
                                         <connections>
                                             <action selector="deleteNodeBUtton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="SeX-Q9-nwF"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hc-kb-Cg3">
-                                        <rect key="frame" x="30.666666666666671" y="92" width="25" height="30"/>
+                                        <rect key="frame" x="30.666666666666671" y="46" width="25" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vW3-ev-b9k">
-                                        <rect key="frame" x="30.666666666666671" y="138" width="25" height="30"/>
+                                        <rect key="frame" x="30.666666666666671" y="92" width="25" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="558-CX-LnF">
-                                        <rect key="frame" x="24.666666666666671" y="184" width="37" height="30"/>
+                                        <rect key="frame" x="24.666666666666671" y="138" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="doneButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="04c-tE-qtm"/>

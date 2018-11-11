@@ -33,16 +33,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //        deleteNode(node: self.currentNodeOnTap!)
 //    }
     
-    @IBAction func editNodeButton(_ sender: UIButton) {
-        editNode(node: self.currentNodeOnTap!)
-    }
+   
     
     @IBAction func deleteNodeBUtton(_ sender: UIButton) {
-        deleteNode(node: self.currentNodeOnTap!)
+        deleteNode(node: (self.currentNodeOnTap?.parent!)!)
+        
     }
     
     
     @IBAction func doneButton(_ sender: UIButton) {
+        
         TapStack.isHidden = true;
     }
     
@@ -181,7 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if anchor is ARPlaneAnchor {
             return
         }
-        let newNode = SCNNode(geometry: SCNPyramid(width: 0.04, height: 0.08, length: 0.04))
+        let newNode = SCNNode(geometry: SCNCylinder(radius: 0.02, height: 0.04))
         
         //Setting title and message for the alert dialog
         let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
@@ -363,50 +363,50 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    func editNode(node: SCNNode) {
-        let alertController = UIAlertController(title: "Enter new name", message: "", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-            //getting the input values from user
-            let newName = alertController.textFields?[0].text
-            let currentName = node.name!.components(separatedBy: "@")
-            var nameOfNode: String = currentName[0]
-            let description: String = currentName[1]
-            nameOfNode = newName ?? currentName[0]
-            
-            node.name = nameOfNode + "@" + description
-            
-            let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
-            let material = SCNMaterial()
-            material.diffuse.contents = UIColor.white
-            displayNodeName.materials = [material]
-            
-            let newTextNode = SCNNode()
-            newTextNode.position = SCNVector3(node.position.x, node.position.y, node.position.z + 0.07)
-            newTextNode.scale = SCNVector3(0.004, 0.004, 0.004)
-            newTextNode.geometry = displayNodeName
-            newTextNode.name = "shape"
-            
-            node.addChildNode(newTextNode)
-            
-        }
-        
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter New Name"
-        }
-        //adding the action to dialogbox
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
-        
-        
-    }
-        
+//    func editNode(node: SCNNode) {
+//        let alertController = UIAlertController(title: "Enter new name", message: "", preferredStyle: .alert)
+//        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+//            //getting the input values from user
+//            let newName = alertController.textFields?[0].text
+//            let currentName = node.name!.components(separatedBy: "@")
+//            var nameOfNode: String = currentName[0]
+//            let description: String = currentName[1]
+//            nameOfNode = newName ?? currentName[0]
+//
+//            node.name = nameOfNode + "@" + description
+//
+//            let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
+//            let material = SCNMaterial()
+//            material.diffuse.contents = UIColor.white
+//            displayNodeName.materials = [material]
+//
+//            let newTextNode = SCNNode()
+//            newTextNode.position = SCNVector3(node.position.x, node.position.y, node.position.z + 0.07)
+//            newTextNode.scale = SCNVector3(0.004, 0.004, 0.004)
+//            newTextNode.geometry = displayNodeName
+//            newTextNode.name = "shape"
+//
+//            node.addChildNode(newTextNode)
+//
+//        }
+//
+//        //the cancel action doing nothing
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+//
+//        //adding textfields to our dialog box
+//        alertController.addTextField { (textField) in
+//            textField.placeholder = "Enter New Name"
+//        }
+//        //adding the action to dialogbox
+//        alertController.addAction(confirmAction)
+//        alertController.addAction(cancelAction)
+//
+//        //finally presenting the dialog box
+//        self.present(alertController, animated: true, completion: nil)
+//
+//
+//    }
+    
     func deleteNode(node:SCNNode) {
        node.removeFromParentNode()
     }

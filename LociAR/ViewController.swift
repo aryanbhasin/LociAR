@@ -74,6 +74,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     
     @IBAction func startB(_ sender: UIButton) {
+        sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+            node.removeFromParentNode()
+        }
         sceneView.session.pause()
         sceneView.session.run(configuration, options: [.resetTracking])
     }

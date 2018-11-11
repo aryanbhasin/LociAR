@@ -23,6 +23,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     
     @IBOutlet weak var TapStack: UIStackView!
+    @IBOutlet weak var ButtonStack: UIStackView!
     
     @IBOutlet weak var doneButton: UIButton!
 
@@ -44,6 +45,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func doneButton(_ sender: UIButton) {
         
         TapStack.isHidden = true;
+        ButtonStack.isHidden = true;
     }
     
     //
@@ -56,8 +58,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //    @IBOutlet weak var editNoteButton: UIButton!
 //    @IBOutlet weak var deleteNodeButton: UIButton!
     
-    @IBOutlet weak var nodeNameText: UITextField!
-    @IBOutlet weak var nodeDescriptionText: UITextField!
+    @IBOutlet weak var nodeNameText: UILabel!
+    @IBOutlet weak var nodeDescriptionText: UILabel!
     
     
     let configuration = ARWorldTrackingConfiguration()
@@ -97,14 +99,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
-        
-        // shows origin and feature points for debugging
-        sceneView.debugOptions = [ARSCNDebugOptions.showWorldOrigin, ARSCNDebugOptions.showFeaturePoints]
-        
+        sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
         TapStack.isHidden = true
+        ButtonStack.isHidden = true
         
         let doubleTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -112,19 +110,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let normalTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleTap))
         sceneView.addGestureRecognizer(normalTapGesture)
-        
-        // Create a new scene
-//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        
-        
-        // Set the scene to the view
-//        sceneView.scene = scene
-        
-//        let model = SCNScene(named: "art.scnassets/Lowpoly_tree_sample.scn")!
-//
-//        // Set the scene to the view
-//        sceneView.scene = model
+    
     }
     
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
@@ -137,6 +123,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let hitTestResults = areaTapped.hitTest(touch, types: [.featurePoint, .estimatedHorizontalPlane])
         if hitTestResults.isEmpty == false {
             if let hitTestResult = hitTestResults.first {
+               
                 let virtualAnchor = ARAnchor(transform: hitTestResult.worldTransform)
                 self.sceneView.session.add(anchor: virtualAnchor)
             }
@@ -168,77 +155,76 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 nodeNameText.text = nameOfNode
                 nodeDescriptionText.text = description
                 TapStack.isHidden = false
+                ButtonStack.isHidden = false
             }
             
 
         }
     }
-
-
-
     
+
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        if anchor is ARPlaneAnchor {
-            return
-        }
-        let newNode = SCNNode(geometry: SCNCylinder(radius: 0.02, height: 0.04))
         
-        //Setting title and message for the alert dialog
-        let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
-            //getting the input values from user
-            newNode.name = alertController.textFields?[0].text
-            newNode.name = newNode.name! + "@" + (alertController.textFields?[1].text)!
-            print("I am here")
+            print("flag 4")
+            if anchor is ARPlaneAnchor {
+                return
+            }
+            let newNode = SCNNode(geometry: SCNCylinder(radius: 0.02, height: 0.04))
+            print("flag 5")
+            //Setting title and message for the alert dialog
+            let alertController = UIAlertController(title: "Enter the following details", message: "", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Create", style: .default) { (_) in
+                //getting the input values from user
+                newNode.name = alertController.textFields?[0].text
+                newNode.name = newNode.name! + "@" + (alertController.textFields?[1].text)!
+                //            print("I am here")
+                
+                print(newNode.name)
+                let text = newNode.name?.components(separatedBy: "@")
+                let nameOfNode: String = text![0]
+                let description: String = text![1]
+                //            print(node.childNodes)
+                
+                let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
+                let material = SCNMaterial()
+                material.diffuse.contents = UIColor.white
+                displayNodeName.materials = [material]
+                
+                let textNode = SCNNode()
+                textNode.position = SCNVector3(newNode.position.x, newNode.position.y, newNode.position.z + 0.07)
+                textNode.scale = SCNVector3(0.004, 0.004, 0.004)
+                textNode.geometry = displayNodeName
+                textNode.name = nameOfNode + "text"
+                //            node.replaceChildNode(<#T##oldChild: SCNNode##SCNNode#>, with: <#T##SCNNode#>)
+                node.addChildNode(textNode)
+            }
             
-            print(newNode.name)
-            let text = newNode.name?.components(separatedBy: "@")
-            let nameOfNode: String = text![0]
-            let description: String = text![1]
-            print(node.childNodes)
+            //the cancel action doing nothing
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+                
+                self.removeNode(newNode: newNode)
+                
+            }
             
-            let displayNodeName = SCNText(string: nameOfNode, extrusionDepth: 1)
-            let material = SCNMaterial()
-            material.diffuse.contents = UIColor.white
-            displayNodeName.materials = [material]
+            //adding textfields to our dialog box
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Enter Name"
+            }
+            //adding textfields to our dialog box
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Enter Description"
+            }
             
-            let textNode = SCNNode()
-            textNode.position = SCNVector3(newNode.position.x, newNode.position.y, newNode.position.z + 0.07)
-            textNode.scale = SCNVector3(0.004, 0.004, 0.004)
-            textNode.geometry = displayNodeName
-            textNode.name = nameOfNode + "text"
-//            node.replaceChildNode(<#T##oldChild: SCNNode##SCNNode#>, with: <#T##SCNNode#>)
-            node.addChildNode(textNode)
-        }
-        
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            //adding the action to dialogbox
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
             
-            self.removeNode(newNode: newNode)
+            //finally presenting the dialog box
+            self.present(alertController, animated: true, completion: nil)
             
-        }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Name"
-        }
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Description"
-        }
-        
-        //adding the action to dialogbox
-        alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
-        
-        newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-        
-        node.addChildNode(newNode)
-        
-        //createNode(node: node, anchor: anchor)
+            newNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+            
+            node.addChildNode(newNode)
     }
     
     func removeNode(newNode: SCNNode) {
@@ -287,8 +273,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let confirmAction = UIAlertAction(title: "Load", style: .default) { (_) in
             //getting the input values from user
             let name = alertController.textFields?[0].text
+            print("flag 1")
             self.loadMap(name: name!)
+            print("flag 2")
         }
+       
         
         //the cancel action doing nothing
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
@@ -316,10 +305,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 let configuration = ARWorldTrackingConfiguration(); configuration.initialWorldMap = worldMap; configuration.planeDetection = .horizontal;
 //                self.lblMessage.text = "Previous world map loaded";
                 sceneView.session.run(configuration)
+                print("flag 3")
             }
         } else {
             let configuration = ARWorldTrackingConfiguration(); configuration.planeDetection = .horizontal; sceneView.session.run(configuration)
-        } }
+        }
+    }
     
     func saveForm() {
         //Setting title and message for the alert dialog
@@ -342,8 +333,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         
+        print("flag 6")
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
+        print("flag 7")
         
     }
     func saveMap(name: String) {
@@ -409,6 +402,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func deleteNode(node:SCNNode) {
        node.removeFromParentNode()
+        ButtonStack.isHidden = true
+        TapStack.isHidden = true
     }
     
     

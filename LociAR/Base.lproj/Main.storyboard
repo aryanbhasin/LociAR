@@ -21,63 +21,72 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOl-Yq-RFJ">
-                                <rect key="frame" x="170" y="688" width="34" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-ZM-nEC">
+                                <rect key="frame" x="165" y="471" width="44.666666666666664" height="53.666666666666664"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="saveB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="gSk-FH-FhF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIs-Ch-pbD">
-                                <rect key="frame" x="22" y="688" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Load"/>
-                                <connections>
-                                    <action selector="loadB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="vtt-Ui-l02"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-lx-9Tl">
-                                <rect key="frame" x="319" y="688" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <action selector="startB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z3A-WU-JMY"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-ZM-nEC">
-                                <rect key="frame" x="144" y="140" width="86" height="168"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLB-a1-awI">
+                                        <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgj-wu-ivh">
+                                        <rect key="frame" x="0.0" y="33.333333333333336" width="44.666666666666664" height="20.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="vQQ-SQ-dkq" userLabel="Button Stack">
+                                <rect key="frame" x="136" y="548" width="107" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uha-CM-eh3">
-                                        <rect key="frame" x="0.0" y="0.0" width="86" height="30"/>
-                                        <state key="normal" title="Delete Node"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Delete"/>
                                         <connections>
                                             <action selector="deleteNodeBUtton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="SeX-Q9-nwF"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4hc-kb-Cg3">
-                                        <rect key="frame" x="30.666666666666671" y="46" width="25" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vW3-ev-b9k">
-                                        <rect key="frame" x="30.666666666666671" y="92" width="25" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="558-CX-LnF">
-                                        <rect key="frame" x="24.666666666666671" y="138" width="37" height="30"/>
+                                        <rect key="frame" x="69" y="0.0" width="38" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="doneButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="04c-tE-qtm"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-lx-9Tl">
+                                <rect key="frame" x="316" y="693" width="32" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Path" image="add-button-white-hi.png"/>
+                                <connections>
+                                    <action selector="startB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z3A-WU-JMY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOl-Yq-RFJ">
+                                <rect key="frame" x="169" y="685" width="47" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save Path" image="save_white_192x192.png"/>
+                                <connections>
+                                    <action selector="saveB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="gSk-FH-FhF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIs-Ch-pbD">
+                                <rect key="frame" x="31" y="691" width="29" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Load Path" image="stories_logo.png" backgroundImage="stories_logo.png"/>
+                                <connections>
+                                    <action selector="loadB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="vtt-Ui-l02"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -89,10 +98,11 @@
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="ButtonStack" destination="vQQ-SQ-dkq" id="I3s-Hg-VdP"/>
                         <outlet property="TapStack" destination="GUi-ZM-nEC" id="oVr-Y9-1Ry"/>
                         <outlet property="doneButton" destination="558-CX-LnF" id="yd3-Gh-n93"/>
-                        <outlet property="nodeDescriptionText" destination="vW3-ev-b9k" id="8PB-NN-Yyn"/>
-                        <outlet property="nodeNameText" destination="4hc-kb-Cg3" id="D48-9W-lcP"/>
+                        <outlet property="nodeDescriptionText" destination="Zgj-wu-ivh" id="soA-Ho-bnR"/>
+                        <outlet property="nodeNameText" destination="VLB-a1-awI" id="b88-el-5WS"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
                     </connections>
                 </viewController>
@@ -101,4 +111,9 @@
             <point key="canvasLocation" x="64.799999999999997" y="22.906403940886701"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add-button-white-hi.png" width="594" height="600"/>
+        <image name="save_white_192x192.png" width="192" height="192"/>
+        <image name="stories_logo.png" width="89" height="109"/>
+    </resources>
 </document>

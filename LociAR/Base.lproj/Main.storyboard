@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                             </arscnView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-ZM-nEC">
-                                <rect key="frame" x="165" y="471" width="44.666666666666664" height="53.666666666666664"/>
+                                <rect key="frame" x="165" y="470.99999999999994" width="44.666666666666664" height="53.666666666666664"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLB-a1-awI">
@@ -62,16 +62,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-lx-9Tl">
-                                <rect key="frame" x="316" y="693" width="32" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start Path" image="add-button-white-hi.png"/>
-                                <connections>
-                                    <action selector="startB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z3A-WU-JMY"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOl-Yq-RFJ">
-                                <rect key="frame" x="169" y="685" width="47" height="47"/>
+                                <rect key="frame" x="163.66666666666666" y="677.66666666666663" width="58" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save Path" image="save_white_192x192.png"/>
                                 <connections>
@@ -85,6 +77,14 @@
                                 <state key="normal" title="Load Path" image="stories_logo.png" backgroundImage="stories_logo.png"/>
                                 <connections>
                                     <action selector="loadB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="vtt-Ui-l02"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sg-lx-9Tl">
+                                <rect key="frame" x="312" y="688" width="47" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Path" image="add-button-white-hi.png"/>
+                                <connections>
+                                    <action selector="startB:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z3A-WU-JMY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -101,9 +101,12 @@
                         <outlet property="ButtonStack" destination="vQQ-SQ-dkq" id="I3s-Hg-VdP"/>
                         <outlet property="TapStack" destination="GUi-ZM-nEC" id="oVr-Y9-1Ry"/>
                         <outlet property="doneButton" destination="558-CX-LnF" id="yd3-Gh-n93"/>
+                        <outlet property="loadButton" destination="jIs-Ch-pbD" id="aQA-zh-98g"/>
                         <outlet property="nodeDescriptionText" destination="Zgj-wu-ivh" id="soA-Ho-bnR"/>
                         <outlet property="nodeNameText" destination="VLB-a1-awI" id="b88-el-5WS"/>
+                        <outlet property="savePathButton" destination="aOl-Yq-RFJ" id="16i-1R-UTa"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="startPathButton" destination="5sg-lx-9Tl" id="mDV-gx-Rrw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

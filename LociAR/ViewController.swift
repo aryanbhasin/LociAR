@@ -16,6 +16,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //    let tap = UITapGestureRecognizer(target: self, action: Selector("tapFunction:"))
 //    var fileManager = FileManager()
     
+    
     var currentNodeOnTap:SCNNode?
     
     var currentTextNodeOnTap: SCNNode?
@@ -25,6 +26,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var TapStack: UIStackView!
     @IBOutlet weak var ButtonStack: UIStackView!
     
+    @IBOutlet weak var startPathButton: UIButton!
+    @IBOutlet weak var savePathButton: UIButton!
+    @IBOutlet weak var loadButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
 
 //    @IBAction func editNodeButton(_ sender: UIButton) {
@@ -103,6 +107,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         TapStack.isHidden = true
         ButtonStack.isHidden = true
+        
+        let loadButtonImage = UIImage(named: "")
         
         let doubleTapGesture = UITapGestureRecognizer (target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2

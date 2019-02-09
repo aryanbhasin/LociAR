@@ -14,4 +14,4 @@ LociAR is built on ARKit along with the SceneKit framework to build the iOS App.
 
 ## Screenshots
 
-![Screenshot #1](images/IMG_6476.PNG) ![Screenshot #2](images/IMG_6474.PNG) ![Screenshot #3](images/IMG_6473.PNG) ![Screenshot #4](images/IMG_6472.PNG)
+<img src="images/IMG_6476.PNG" width=250 /> <img src="images/IMG_6474.PNG" width=250 /> <img src="images/IMG_6473.PNG" width=250 /> <img src="images/IMG_6472.PNG" width=250 />

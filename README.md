@@ -1,7 +1,7 @@
 # LociAR
 ### *Learn on the walk*
 
-![Logo](images/LociAR)small.png)
+![Logo](images/LociAR_small.png)
 
 ## Conception
 People think of education simply as the encoding of knowledge, but most people don't realize that the hard part about learning is the **recall**. The focus of this project was to use Augmented Reality to enhance recall by mapping concepts and knowledge onto spatial objects on a path–a popular recalling technique called the *Method of Loci*. This idea, inspired from the Mind Palace technique in the TV show 'Sherlock', helps enhance association of knowledge using paths that we are familiar with - for instance, those we walk as we go through our daily routine.
@@ -14,7 +14,4 @@ LociAR is built on ARKit along with the SceneKit framework to build the iOS App.
 
 ## Screenshots
 
-![Screenshot #1](images/IMG_6476.PNG) 
-![Screenshot #2](images/IMG_6474.PNG) 
-![Screenshot #3](images/IMG_6473.PNG) 
-![Screenshot #4](images/IMG_6472.PNG)
+![Screenshot #1](images/IMG_6476.PNG) ![Screenshot #2](images/IMG_6474.PNG) ![Screenshot #3](images/IMG_6473.PNG) ![Screenshot #4](images/IMG_6472.PNG)
